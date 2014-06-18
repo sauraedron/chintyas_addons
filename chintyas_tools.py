@@ -84,13 +84,15 @@ class DrawPanel(bpy.types.Panel):
 
 def register():
     bpy.utils.register_class(DrawPanel)
-    bpy.utils.register_class(CTon)
     bpy.utils.register_class(CToff)
+    bpy.utils.register_class(CTon)
+    
 
 def unregister():
-    bpy.utils.unregiset_class(DrawPanel)
     bpy.utils.unregister_class(CTon)
     bpy.utils.unregister_class(CToff)
+    bpy.utils.unregister_class(DrawPanel)
+
 
 
 if __name__ == "__main__":
