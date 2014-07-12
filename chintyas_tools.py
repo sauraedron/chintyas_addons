@@ -23,12 +23,30 @@ bl_info = {
     "author": "Saurabh Wankhade",
     "version": (0, 1, 1),
     "blender": (2, 70),
+    "location": "Tool Shelf",
     "description": "Easing workflow",
     "warning": "",
     "category": "3D View"}
 import bpy
 
 
+def toggler(self, option):
+    scene = bpy.context.scene
+    selected = bpy.context.visible_objects
+    object = bpy.ops.object
+    for obj in selected:
+        scene.objects.active =obj
+        for mod in obj.modifiers:
+            if mod.type == "PARTICLE_SYSTEM":
+                if(option=="on"):
+                    mod.show_viewport = True
+                elif(option=="off"):
+                    mod.show_viewport = False
+                              
+
+   
+    
+    
 class CTon(bpy.types.Operator):
     """Chintya's tools"""      
     bl_idname = "toggle.on"    
@@ -36,16 +54,9 @@ class CTon(bpy.types.Operator):
     bl_options = {'REGISTER'}  
 
     def execute(self, context):
-        scene = bpy.context.scene
-        selected = bpy.context.visible_objects
-        object = bpy.ops.object
-        for obj in selected:
-            scene.objects.active =obj
-            for mod in obj.modifiers:
-                if mod.type == "PARTICLE_SYSTEM":
-                    mod.show_viewport = True
-
+        toggler(self, "on")
         return {'FINISHED'}
+
     
 class CToff(bpy.types.Operator):
     """Chintya's tools"""      
@@ -54,17 +65,7 @@ class CToff(bpy.types.Operator):
     bl_options = {'REGISTER'}  
 
     def execute(self, context):        
-        scene = bpy.context.scene
-        selected = bpy.context.visible_objects
-        object = bpy.ops.object
-
-
-        for obj in selected:
-            scene.objects.active =obj
-            for mod in obj.modifiers:
-                if mod.type == "PARTICLE_SYSTEM":
-                    mod.show_viewport = False
-
+        toggler(self, "off")
         return {'FINISHED'}
 
 class DrawPanel(bpy.types.Panel):
@@ -106,4 +107,5 @@ if __name__ == "__main__":
 
 
                          
+
 
